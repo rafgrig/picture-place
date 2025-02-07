@@ -2,12 +2,14 @@ import { collection, doc, setDoc, getDoc, } from "firebase/firestore";
 import { db } from "../firestore.js";
 import { useEffect, useState } from "react";
 import "./Profile.css"
-import { Routes, Route, Link } from "react-router";
-import CreatePost from "./CreatePost.jsx";
-
+import { useNavigate } from "react-router";
+import Post from "./Post.jsx";
 function Profile() {
 
     const [userData, setUserData] = useState(null)
+    const [data, setData] = useState(null)
+    const [refresh, setRefresh] = useState(0)
+    const navigate = useNavigate()
  
     useEffect(() => {
         async function fetchData() {
@@ -16,13 +18,14 @@ function Profile() {
 
             if (docSnap.exists()) {
                 setUserData(docSnap.data()); // Save user data in state
+                setData(docSnap)
             } else {
                 console.log("No such document!");
             }
         }
         fetchData()
     }
-        , [])
+        , [refresh])
 
 
     return (
@@ -30,26 +33,17 @@ function Profile() {
             {userData ? (
                 <> 
                     <img style={{ margin: 5, width: 200, height: 200, borderRadius: "100%" }} src={userData["profile_pic"]} />
-                    <p>User Name: {userData["nick_name"]}</p>
-                    <p>User email: {userData.email}</p>
+                    <h3 style={{margin:5}}>User Name: {userData["nick_name"]}</h3>
+                    <h3 style={{margin:5}}>User email: {userData.email}</h3>
 
-                    <Link to="/create">
-                        <button id="addBtn">+</button>
-                    </Link>
+                    <h1>{data["_key"].path.segments[1]}</h1>
+
+                        <button onClick={()=>{navigate("/create")}} id="addBtn">+</button>
 
                     <div className="posts">
                         {userData.posts && userData.posts.length > 0 ? (
                             userData.posts.map((post, index) => (
-                                <div className="postWrapper" key={index}>
-                                    <img src={post.img} alt="" />
-                                    <div className="misc">
-                                        <h4>{post.title}</h4>
-                                        <span>{post.description}</span>
-                                        <br />
-                                        <br />
-                                        <b>Rating: {post.rating}</b>
-                                    </div>
-                                </div>
+                                <Post index={index} img={post.img} title={post.title} description={post.description} rating={post.rating} deletingData={userData.posts} userId={data["_key"].path.segments[1]} setRefresh={setRefresh}/>
                             ))
                         ) : (
                             <p>No posts available</p>

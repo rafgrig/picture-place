@@ -37,3 +37,37 @@
         margin-top:-23px
     }
     
+    .deleteBtn{
+        float: right;
+        position: relative;
+        border: none;
+        color: white;
+        background-color: red;
+        border-radius: 100%;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        font-size: large;
+        right: 20px;
+        bottom: 10px;
+    }
+
+    .btnWrapper{
+        display: flex;
+        justify-content: space-between;
+        width: 50%;
+        margin-right: 25%;
+    }
+
+    .btnWrapper button{
+        border: none;
+        font-size: large;
+        width: 30%;
+        border-radius: 45px;
+        transition: 0.5s;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+
+    .btnWrapper button:hover{
+        transform: scale(1.2);
+    }

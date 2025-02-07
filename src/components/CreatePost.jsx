@@ -2,12 +2,13 @@ import { useState } from "react";
 import "./CreatePost.css";
 import { db } from "../firestore";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
-import { useNavigation } from "react-router";
+import { useNavigate } from "react-router";
 
 function CreatePost() {
     const [imgURL, setImgURL] = useState("");
     const [title, setTitle] = useState("");
     const [descr, setDescr] = useState("");
+    const navigate = useNavigate()
 
     async function addPost() {
         if (!imgURL || !title || !descr) {
@@ -31,6 +32,7 @@ function CreatePost() {
             setImgURL("");
             setTitle("");
             setDescr("");
+            navigate("/profile")
         } catch (error) {
             console.error("Error! ", error);
         }
