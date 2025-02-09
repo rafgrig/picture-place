@@ -71,3 +71,27 @@
     .btnWrapper button:hover{
         transform: scale(1.2);
     }
+
+    .editBtn{
+        float: right;
+        position: relative;
+        font-size: larger;
+        border: none;
+        background-color: transparent;
+        bottom: 10px;
+        cursor: pointer;
+    }
+
+    .inputWrapper{
+        display: block;
+        justify-content: center;
+    }
+
+    .inputWrapper input{
+        border: none;
+        background-color: rgb(230, 230, 230);
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        border-radius: 45px;
+        font-size: medium;
+        padding: 5px;
+    }
