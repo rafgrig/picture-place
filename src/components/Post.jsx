@@ -43,48 +43,52 @@ function Post({
     setOpenDel(false);
   }, [forDeleting, userId, setRefresh]);
 
-  const editing = useCallback(async () => {
-    await runTransaction(db, async (transaction) => {
-      let array = deletingData;
-      array[index] = {
-        ...array[index],
-        title: newTitle,
-        description: newDescr,
-      };
-      transaction.update(doc(db, "users", userId), { posts: array });
-    });
-    setOpenEdit(false);
-    setRefresh((prevState) => {
-      return prevState + 1;
-    });
-  }, [index, newTitle, newDescr, deletingData, userId, setRefresh]);
+  const editing = useCallback(
+    async (e) => {
+      e.stopPropagation();
+      await runTransaction(db, async (transaction) => {
+        let array = deletingData;
+        array[index] = {
+          ...array[index],
+          title: newTitle,
+          description: newDescr,
+        };
+        transaction.update(doc(db, "users", userId), { posts: array });
+      });
+      setOpenEdit(false);
+      setRefresh((prevState) => {
+        return prevState + 1;
+      });
+    },
+    [index, newTitle, newDescr, deletingData, userId, setRefresh]
+  );
 
   return (
     <>
-      <div
-        className="postWrapper"
-        key={index}
-        onClick={() => {
-          console.log("Clicked on post", index);
-          navigate("/post/HzG4wIXuwBnklGF2Gh8T/" + index); // aystex ID-n hardcode araca, piti dynamic lini
-        }}
-      >
-        <button
+      <div className="postWrapper" key={index}>
+        <div
+          className="divToClick"
           onClick={() => {
-            setOpenDel(true);
+            console.log("Clicked on post", index);
+            navigate("/post/HzG4wIXuwBnklGF2Gh8T/" + index); // aystex ID-n hardcode araca, piti dynamic lini
           }}
-          className="deleteBtn"
         >
-          X
-        </button>
-        <img src={img} alt="post image" />
-        <div className="misc">
-          <h4>{title}</h4>
-          <span>{description}</span>
-          <br />
-          <br />
-          <b>Rating: {rating}</b>
-
+          <button
+            onClick={() => {
+              setOpenDel(true);
+            }}
+            className="deleteBtn"
+          >
+            X
+          </button>
+          <img src={img} alt="post image" />
+          <div className="misc">
+            <h4>{title}</h4>
+            <span className="descriptionSpan">{description}</span>
+            <br />
+            <br />
+          </div>
+          </div>
           <button
             onClick={() => {
               setOpenEdit(true);
@@ -93,7 +97,6 @@ function Post({
           >
             ✏️
           </button>
-        </div>
       </div>
       <Dialog
         open={openDel}

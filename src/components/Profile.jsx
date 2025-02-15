@@ -1,4 +1,4 @@
-import { collection, doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firestore.js";
 import { useEffect, useState } from "react";
 import "./Profile.css";
@@ -9,6 +9,10 @@ function Profile() {
   const [data, setData] = useState(null);
   const [refresh, setRefresh] = useState(0);
   const navigate = useNavigate();
+
+  function truncateText(text, maxLength = 350) {
+    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -33,7 +37,7 @@ function Profile() {
     } else {
       const ratingsArray = Object.values(ratings);
       const total = ratingsArray.reduce((acc, curr) => acc + curr, 0);
-      return total / ratingsArray.length;
+      return (total / ratingsArray.length).toFixed(2);
     }
   }
 
@@ -64,9 +68,9 @@ function Profile() {
               userData.posts.map((post, index) => (
                 <Post
                   index={index}
-                  img={post.img}
+                 img={post.img}
                   title={post.title}
-                  description={post.description}
+                  description={truncateText(post.description)}
                   rating={calculateAverageRating(post.rating)}
                   deletingData={userData.posts}
                   userId={data["_key"].path.segments[1]}

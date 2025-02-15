@@ -1,76 +1,18 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../firestore"; 
+import { useParams } from "react-router";
+import RatingStars from "./RatingStars";
 
 function PostPage() {
   const { userId, postIndex } = useParams();
-  const [post, setPost] = useState(null);
-  const [rating, setRating] = useState({});
-  const raterId = "HzG4wIXuwBnklGF2Gh8T"; // Hardcode arac useri ID, piti poxvi darna login exac useri Id
-
-  useEffect(() => {
-    async function fetchPost() {
-      const userRef = doc(db, "users", userId);
-      const userSnap = await getDoc(userRef);
-
-      if (userSnap.exists()) {
-        const userData = userSnap.data();
-        const posts = userData.posts || [];
-
-        if (postIndex < posts.length) {
-          setPost(posts[postIndex]);
-          setRating(posts[postIndex].rating || {});
-        }
-      }
-    }
-    fetchPost();
-  }, [userId, postIndex]);
-
-  async function handleRating(value) {
-    if (!post) return;
-
-    const userRef = doc(db, "users", userId);
-    const updatedRatings = { ...rating, [raterId]: value };
-    setRating(updatedRatings); 
-
-    post.rating = updatedRatings; 
-
-    try {
-      const userSnap = await getDoc(userRef);
-      if (!userSnap.exists()) throw new Error("No such user");
-
-      const userData = userSnap.data();
-      const posts = userData.posts;
-
-      if (postIndex >= posts.length) throw new Error("No such post");
-
-      posts[postIndex].rating = updatedRatings;
-
-      await updateDoc(userRef, { posts });
-    } catch (error) {
-      console.error("Error: ", error);
-    }
-  }
-
-  if (!post) return <h2>Loading...</h2>;
-
   return (
     <div>
       <div>
-        {[1, 2, 3, 4, 5].map((star) => (
-          <span
-            key={star}
-            onClick={() => handleRating(star)}
-            style={{
-              fontSize: "24px",
-              cursor: "pointer",
-              marginRight: "5px",
-            }}
-          >
-            {star <= (rating[raterId] || 0) ? "⭐" : "☆"}
-          </span>
-        ))}
+        <h2>Post Page</h2>
+        <p>User ID: {userId}</p>
+        <p>Post Index: {postIndex}</p>
+        <div>
+          <p>Rating:</p>
+          <RatingStars />
+        </div>
       </div>
     </div>
   );
