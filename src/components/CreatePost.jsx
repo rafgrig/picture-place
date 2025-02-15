@@ -12,7 +12,7 @@ function CreatePost() {
 
     async function addPost() {
         if (!imgURL || !title || !descr) {
-            console.log("Fill the inputs!");
+            alert("Fill the inputs!");
             return;
         }
 
@@ -25,6 +25,7 @@ function CreatePost() {
                     description: descr,
                     img: imgURL,
                     rating: 0,
+                    comments:[]
                 }),
             });
 
