@@ -24,7 +24,7 @@ function CreatePost() {
                     title: title,
                     description: descr,
                     img: imgURL,
-                    rating: 0,
+                    rating: {},
                     comments:[]
                 }),
             });
