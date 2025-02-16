@@ -36,7 +36,7 @@ function Profile() {
       return ratings;
     } else {
       const ratingsArray = Object.values(ratings);
-      const total = ratingsArray.reduce((acc, curr) => acc + curr, 0);
+      const total = ratingsArray.reduce((acc, curr) =>{acc + curr}, 0);
       return (total / ratingsArray.length).toFixed(2);
     }
   }

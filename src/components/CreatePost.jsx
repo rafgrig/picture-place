@@ -40,19 +40,23 @@ function CreatePost() {
 
     return (
         <div>
-            <h1 style={{ display: "flex", fontSize: 100, justifyContent: "center", position: "relative", top: 150 }}>
+            <h1 style={{ display: "flex", fontSize: 100, justifyContent: "center" }}>
                 <b>Create Post</b>
             </h1>
 
-            <div className="postCrtWrapper">
-                <div className="head">
-                    <h4>Image</h4>
+
+            <div className="postCrtWrapper">    
+                <div className="head    ">
+                    <h4 style={{fontSize:"50px"}}>Image</h4>
+                    <br />   
                     <input value={imgURL} onChange={(e) => setImgURL(e.target.value)} type="text" className="fieldInput" placeholder="Enter image URL" />
 
-                    <h4>Title</h4>
+                    <h4 style={{fontSize:"50px"}}>Title</h4>
+                    <br />
                     <input value={title} onChange={(e) => setTitle(e.target.value)} className="fieldInput" type="text" placeholder="Enter the title" />
 
-                    <h4>Description</h4>
+                    <h4 style={{fontSize:"50px"}}>Description</h4>
+                    <br />
                     <input value={descr} onChange={(e) => setDescr(e.target.value)} className="fieldInput" type="text" placeholder="Enter the description" />
 
                     <br />

@@ -24,8 +24,8 @@ function Post({
   const forDeleting = deletingData[index];
   const [openDel, setOpenDel] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
-  const [newTitle, setNewTitle] = useState("");
-  const [newDescr, setNewDescr] = useState("");
+  const [newTitle, setNewTitle] = useState(deletingData[index].title);
+  const [newDescr, setNewDescr] = useState(deletingData[index].description);
 
   const navigate = useNavigate();
 
@@ -65,15 +65,9 @@ function Post({
 
   return (
     <>
-      <div className="postWrapper" key={index}>
-        <div
-          className="divToClick"
-          onClick={() => {
-            console.log("Clicked on post", index);
-            navigate("/post/HzG4wIXuwBnklGF2Gh8T/" + index); // aystex ID-n hardcode araca, piti dynamic lini
-          }}
-        >
-          <button
+      <div className="postWrapper" key={index}> 
+
+        <button
             onClick={() => {
               setOpenDel(true);
             }}
@@ -81,6 +75,15 @@ function Post({
           >
             X
           </button>
+
+        <div
+          className="divToClick"
+          onClick={() => {
+            console.log("Clicked on post", index);
+            navigate("/post/HzG4wIXuwBnklGF2Gh8T/" + index); // aystex ID-n hardcode araca, piti dynamic lini
+          }}
+        >
+         
           <img src={img} alt="post image" />
           <div className="misc">
             <h4>{title}</h4>
@@ -108,18 +111,20 @@ function Post({
         <DialogActions>
           <div className="btnWrapper">
             <button
+            className="commitBtn"
               style={{
                 backgroundColor: "rgb(177, 177, 177)",
-                cursor: "pointer",
               }}
               onClick={deleting}
             >
               Yes
             </button>
+            
             <button
+            className="commitBtn"
+
               style={{
                 backgroundColor: "rgb(218, 218, 218)",
-                cursor: "pointer",
               }}
               onClick={() => {
                 setOpenDel(false);
@@ -145,7 +150,7 @@ function Post({
             </label>
             <br />
             <input
-              value={deletingData[index].title}
+              value={newTitle}
               onChange={(e) => {
                 setNewTitle(e.target.value);
               }}
@@ -160,7 +165,7 @@ function Post({
             </label>
             <br />
             <input
-              value={deletingData[index].description}
+              value={newDescr}
               onChange={(e) => {
                 setNewDescr(e.target.value);
               }}

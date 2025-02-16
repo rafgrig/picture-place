@@ -1,9 +1,7 @@
     .postCrtWrapper {
         display: flex;
         justify-content: center;
-        position: relative;
         font-size: medium;
-        top: 90px;
     }
 
     .head {

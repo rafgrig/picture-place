@@ -4,8 +4,22 @@ import Header from './components/Header';
 import Profile from './components/Profile';
 import CreatePost from './components/CreatePost';
 import PostPage from './components/PostPage';
+import { useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firestore'
 
 function App() {
+    useEffect(() => onAuthStateChanged(auth, (user) => {    
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.uid;
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    }), [])
   return (
     
     <Router>
