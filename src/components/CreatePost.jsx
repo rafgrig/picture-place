@@ -25,7 +25,6 @@ function CreatePost() {
                     description: descr,
                     img: imgURL,
                     rating: {},
-                    comments:[]
                 }),
             });
 
