@@ -16,7 +16,6 @@ function Post({
   img,
   title,
   description,
-  rating,
   deletingData,
   userId,
   setRefresh,
