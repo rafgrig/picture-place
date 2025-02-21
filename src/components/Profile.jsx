@@ -29,18 +29,6 @@ function Profile() {
     fetchData();
   }, [refresh]);
 
-  function calculateAverageRating(ratings) {
-    if (!ratings) {
-      return 0;
-    } else if (typeof ratings !== "object") {
-      return ratings;
-    } else {
-      const ratingsArray = Object.values(ratings);
-      const total = ratingsArray.reduce((acc, curr) =>{acc + curr}, 0);
-      return (total / ratingsArray.length).toFixed(2);
-    }
-  }
-
   return (
     <div>
       {userData ? (
@@ -71,7 +59,6 @@ function Profile() {
                  img={post.img}
                   title={post.title}
                   description={truncateText(post.description)}
-                  rating={calculateAverageRating(post.rating)}
                   deletingData={userData.posts}
                   userId={data["_key"].path.segments[1]}
                   setRefresh={setRefresh}

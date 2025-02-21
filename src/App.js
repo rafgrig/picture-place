@@ -7,6 +7,7 @@ import PostPage from './components/PostPage';
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firestore'
+import MostPopular from './components/MostPopular';
 
 function App() {
     useEffect(() => onAuthStateChanged(auth, (user) => {    
