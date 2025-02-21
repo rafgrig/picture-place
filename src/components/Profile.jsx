@@ -9,16 +9,13 @@ function Profile() {
   const [data, setData] = useState(null);
   const [refresh, setRefresh] = useState(0);
   const navigate = useNavigate();
-
   function truncateText(text, maxLength = 350) {
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
   }
-
   useEffect(() => {
     async function fetchData() {
       const userDocRef = doc(db, "users", "HzG4wIXuwBnklGF2Gh8T");
       const docSnap = await getDoc(userDocRef);
-
       if (docSnap.exists()) {
         setUserData(docSnap.data()); // Save user data in state
         setData(docSnap);
@@ -28,7 +25,6 @@ function Profile() {
     }
     fetchData();
   }, [refresh]);
-
   function calculateAverageRating(ratings) {
     if (!ratings) {
       return 0;
@@ -36,11 +32,10 @@ function Profile() {
       return ratings;
     } else {
       const ratingsArray = Object.values(ratings);
-      const total = ratingsArray.reduce((acc, curr) =>{acc + curr}, 0);
+      const total = ratingsArray.reduce((acc, curr) => acc + curr, 0);
       return (total / ratingsArray.length).toFixed(2);
     }
   }
-
   return (
     <div>
       {userData ? (
@@ -51,9 +46,7 @@ function Profile() {
           />
           <h3 style={{ margin: 5 }}>User Name: {userData["nick_name"]}</h3>
           <h3 style={{ margin: 5 }}>User email: {userData.email}</h3>
-
           <h1>{data["_key"].path.segments[1]}</h1>
-
           <button
             onClick={() => {
               navigate("/create");
@@ -62,11 +55,11 @@ function Profile() {
           >
             +
           </button>
-
           <div className="posts">
             {userData.posts && userData.posts.length > 0 ? (
               userData.posts.map((post, index) => (
                 <Post
+                key={post.id || index}
                   index={index}
                  img={post.img}
                   title={post.title}
@@ -88,5 +81,4 @@ function Profile() {
     </div>
   );
 }
-
 export default Profile;

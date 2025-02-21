@@ -1,4 +1,4 @@
-import { Link, useLocation,  } from "react-router";
+import { Link, useLocation } from "react-router-dom";
 import profilePic from "../assets/profilePic.png"
 import "./Header.css"
 
