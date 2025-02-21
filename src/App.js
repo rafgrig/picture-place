@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firestore'
 import MostPopular from './components/MostPopular';
+import AboutUs from './components/AboutUs';  
+import ContactUs from './components/ContactUs'; 
 
 function App() {
     useEffect(() => onAuthStateChanged(auth, (user) => {    
@@ -30,6 +32,8 @@ function App() {
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/create' element={<CreatePost/>}/>
         <Route path="/post/:userId/:postIndex" element={<PostPage />} />
+        <Route path="/about" element={<AboutUs />} /> 
+        <Route path="/contact" element={<ContactUs />} />
       </Routes>
     </Router>
     
