@@ -38,7 +38,6 @@ function MostPopular() {
       });
     });
     posts.sort((a, b) => b.score - a.score);
-    console.log(posts);
     return posts.slice(0, 2);
   }
 
@@ -64,7 +63,7 @@ function MostPopular() {
               <div
                 className="popular-item"
                 key={index}
-                onClick={() => navigate(`/post/${post.userId}/${index}`)}
+                onClick={() => navigate(`/post/${post.userId}/${index+1}`)}
               >
                 <img src={post.img} alt={post.title} />
                 <div className="info">
@@ -91,3 +90,4 @@ function MostPopular() {
 }
 
 export default MostPopular;
+
