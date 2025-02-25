@@ -45,7 +45,7 @@ function Post({ index, img, title, description, rating, deletingData, userId, se
         <>
             <div className="postWrapper" key={index}>
                 <button onClick={() => { setOpenDel(true) }} className="deleteBtn">X</button>
-                <img src={img} alt="post image" />
+                <img src={img} alt="pic" />
                 <div className="misc">
                     <h4>{title}</h4>
                     <span>{description}</span>
