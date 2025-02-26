@@ -1,49 +1,99 @@
 import { useParams } from "react-router";
-import RatingStars from "./RatingStars";
 import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firestore";
-import {collection, getDocs} from "firebase/firestore"
+import CommentSection from "./CommentSection";
+import RatingStars from "./RatingStars";
+import "./PostPage.css";
 
 function PostPage() {
   const { userId, postIndex } = useParams();
   const [users, setUsers] = useState([]);
-  const [post, setPost] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(()=>{
-    const fetchUsers = async()=>{
+  // Fetch Firestore-ic
+  useEffect(() => {
+    const fetchUsers = async () => {
       try {
         const usersCollection = collection(db, "users");
         const snapshot = await getDocs(usersCollection);
-        const usersData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        
+        const usersData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setUsers(usersData);
+        setIsLoading(false); // loadingi avart
       } catch (error) {
         console.error("Error fetching users:", error);
+        setIsLoading(false); // error handling
       }
-    }
+    };
     fetchUsers();
-  }, [])
+  }, []);
 
-  useEffect(()=>{
-    if (users.length > 0){
-      const user = users.find(user => user.id === userId);
-        setPost(user.posts[postIndex]);
-      }
-  }, [users])
+  // vercnum enq miayn postery users collection-ic
+  function filterPostsFromUsers(users) {
+    const posts = [];
+    users
+      .filter((user) => user.id === userId)
+      .forEach((user) => {
+        if (user.posts) {
+          user.posts.forEach((post) => {
+            posts.push({
+              ...post,
+              userId: user.id,
+              postIdx: user.posts.indexOf(post),
+            });
+          });
+        }
+      });
+    return posts;
+  }
 
-  if (!post) return <h2>Loading...</h2>;
+  const posts = filterPostsFromUsers(users);
+  const selectedPost = posts[postIndex];
+
+  // Re-fetch function - kanchvuma nor avelacvac commenty cuyc talu hamar
+  const handleCommentAdded = async () => {
+    setIsLoading(true); // skizb
+    try {
+      const usersCollection = collection(db, "users");
+      const snapshot = await getDocs(usersCollection);
+      const usersData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setUsers(usersData); // Update users
+    } catch (error) {
+      console.error("Error refetching users:", error);
+    } finally {
+      setIsLoading(false); // avart
+    }
+  };
+
+  // error handling - ete chka post kam loadinga linum
+  if (isLoading || !selectedPost) return <h2>Loading...</h2>;
 
   return (
-    <div>
-      <div>
-        <h2>Post Page</h2>
-        <img src={post.img} alt="post img" />
-        <p>User ID: {userId}</p>
-        <p>Post Index: {postIndex}</p>
-        <div>
-          <p>Rating:</p>
-          <RatingStars />
-        </div>
+    <div className="post-container">
+      <img
+        src={selectedPost.img}
+        alt={selectedPost.title}
+        className="post-image"
+      />
+      <h1 className="post-title">{selectedPost.title}</h1>
+      <p className="post-description">{selectedPost.description}</p>
+      <div className="rating">
+        <p>Rating:</p>
+        <RatingStars />
+      </div>
+      <div className="comments">
+        <CommentSection
+          selectedPost={selectedPost}
+          userIdOwner={userId}
+          onCommentAdded={handleCommentAdded}
+          postIndex={postIndex} 
+        />
       </div>
     </div>
   );

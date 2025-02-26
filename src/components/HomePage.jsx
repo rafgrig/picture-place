@@ -4,6 +4,8 @@ import { db } from "../firestore";
 import "./HomePage.css";
 import MostPopular from "./MostPopular";
 import { useNavigate } from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
 
 import YerevanImg from "../images/YerevanSunset.jpg";
 import StreetArt from "../images/streetArt.webp";
@@ -99,13 +101,12 @@ function HomePage() {
         </div>
       </section>
 
-
       {/* Section 2 (Most Popular)*/}
       <section className="sectionSecond">
         <MostPopular />
       </section>
 
-      <hr className="sectionDivider"/>
+      <hr className="sectionDivider" />
 
       {/* Section 3 (News)*/}
       <section className="sectionThird">
@@ -144,7 +145,7 @@ function HomePage() {
         </div>
       </section>
 
-      <hr className="sectionDivider"/>
+      <hr className="sectionDivider" />
 
       {/* Section 4 (Posts) */}
       <section className="sectionFourth">
@@ -168,7 +169,10 @@ function HomePage() {
                   {truncateText(post.description)}
                 </p>
                 {typeof avgRating === "number" ? (
-                  <p>Rating: {avgRating.toFixed(1)}</p>
+                  <p>
+                    Rating: {avgRating.toFixed(1)}
+                    <FontAwesomeIcon icon={solidStar} className="star-icon" />
+                  </p>
                 ) : (
                   <p>No ratings yet</p>
                 )}

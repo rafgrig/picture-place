@@ -160,6 +160,7 @@
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .newsCard:hover {
@@ -205,4 +206,10 @@
 
 .sectionFourth nav{
   margin-bottom: 20px;
+}
+
+.star-icon {
+  font-size: 16px;
+  color: #ffd84d;
+  transition: color 0.3s ease-in-out;
 }
