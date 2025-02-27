@@ -5,19 +5,21 @@ import "./Profile.css";
 import { useNavigate } from "react-router";
 import Post from "./Post.jsx";
 
-function Profile({userId}) {
+function Profile({ userId }) {
   const [userData, setUserData] = useState(null);
   const [data, setData] = useState(null);
   const navigate = useNavigate();
 
   console.log(userId);
-  
+
   function truncateText(text, maxLength = 350) {
-    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+    return text.length > maxLength
+      ? text.substring(0, maxLength) + "..."
+      : text;
   }
 
-  const fetchData = useCallback(async()=> {
-    if(!userId) return;
+  const fetchData = useCallback(async () => {
+    if (!userId) return;
     const userDocRef = doc(db, "users", userId);
     const docSnap = await getDoc(userDocRef);
     if (docSnap.exists()) {
@@ -36,7 +38,11 @@ function Profile({userId}) {
     <div>
       {userData ? (
         <>
-          <img alt="user's" style={{ margin: 5, width: 200, height: 200, borderRadius: "100%" }} src={userData["profile_pic"]} />
+          <img
+            style={{ margin: 5, width: 200, height: 200, borderRadius: "100%" }}
+            src={userData["profile_pic"]}
+            alt="User Profile"
+          />
           <h3 style={{ margin: 5 }}>User Name: {userData["nick_name"]}</h3>
           <h3 style={{ margin: 5 }}>User email: {userData.email}</h3>
           {/* <h1>{data["_key"].path.segments[1]}</h1> */}
@@ -45,7 +51,7 @@ function Profile({userId}) {
             {userData.posts && userData.posts.length > 0 ? (
               userData.posts.map((post, index) => (
                 <Post
-                  key={index}
+                  key={post.id || index}
                   index={index}
                   img={post.img}
                   title={post.title}

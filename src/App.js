@@ -13,7 +13,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {    
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
       } else {
@@ -21,27 +21,27 @@ function App() {
       }
       setLoading(false);
     });
-  
+
     return () => unsubscribe();
   }, []);
-  
+
   if (loading) {
     return <div>Loading...</div>;
   }
-  
+
   console.log(user?.uid)
   console.log(user)
   return (
     <Router>
       <Routes>
-        <Route path='/login' element={<Login setUser={setUser}/>}/>
-        <Route path='/register' element={<Register setUser={setUser}/>}/>
-        <Route path='*' element={<WithHeader isLogedIn={!!user} userId={user?.uid}/>}/>
+        <Route path='/login' element={<Login setUser={setUser} />} />
+        <Route path='/register' element={<Register setUser={setUser} />} />
+        <Route path='*' element={<WithHeader isLogedIn={!!user} userId={user?.uid} />} />
       </Routes>
     </Router>
   );
 
-  
+
 }
 
 export default App;

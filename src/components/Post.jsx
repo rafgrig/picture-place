@@ -28,14 +28,14 @@ function Post({ featchPosts, index, img, title, description, deletingData, userI
       let array = deletingData;
       array[index] = { ...array[index], title: newTitle, description: newDescr };
       transaction.update(doc(db, "users", userId), { posts: array });
-    }, );
+    },);
     featchPosts()
     setOpenEdit(false);
   }, [index, newTitle, newDescr, deletingData, userId, featchPosts]);
 
   return (
     <>
-      <div className="postWrapper" key={index}> 
+      <div className="postWrapper" key={index}>
         <button onClick={() => setOpenDel(true)} className="deleteBtn">X</button>
         <div className="divToClick" onClick={() => navigate(`/post/${userId}/${index}`)}>
           <img src={img} alt="post" />
@@ -50,8 +50,8 @@ function Post({ featchPosts, index, img, title, description, deletingData, userI
         <DialogTitle>Are you sure you want to delete this post?</DialogTitle>
         <DialogActions>
           <div className="btnWrapper">
-            <button className="commitBtn" style={{ backgroundColor: "rgb(177, 177, 177)", cursor:"pointer"}} onClick={deleting}>Yes</button>
-            <button className="commitBtn" style={{ backgroundColor: "rgb(218, 218, 218)", cursor:"pointer"}} onClick={() => setOpenDel(false)}>No</button>
+            <button className="commitBtn" style={{ backgroundColor: "rgb(177, 177, 177)", cursor: "pointer" }} onClick={deleting}>Yes</button>
+            <button className="commitBtn" style={{ backgroundColor: "rgb(218, 218, 218)", cursor: "pointer" }} onClick={() => setOpenDel(false)}>No</button>
           </div>
         </DialogActions>
       </Dialog>
@@ -60,16 +60,16 @@ function Post({ featchPosts, index, img, title, description, deletingData, userI
         <DialogTitle><h4><b>Edit Post</b></h4></DialogTitle>
         <DialogActions>
           <div className="inputWrapper">
-            <h5 style={{fontSize:20}}><b>Edit Title</b></h5>
+            <h5 style={{ fontSize: 20 }}><b>Edit Title</b></h5>
             <TextField value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="Enter new title" />
-           
+
             <br />
 
-            <h5 style={{fontSize:20}}><b>Edit Description</b></h5>
-            <TextField variant="standard" sx={{backgroundColor:"rgb(230, 230, 230)", borderRadius:"15px"}} multiline value={newDescr} onChange={(e) => setNewDescr(e.target.value)} placeholder="Enter new description" />
-            
-            <br/>
-            <br/>
+            <h5 style={{ fontSize: 20 }}><b>Edit Description</b></h5>
+            <TextField variant="standard" sx={{ backgroundColor: "rgb(230, 230, 230)", borderRadius: "15px" }} multiline value={newDescr} onChange={(e) => setNewDescr(e.target.value)} placeholder="Enter new description" />
+
+            <br />
+            <br />
 
             <button onClick={editing} style={{ width: 80, fontSize: 20, marginLeft: 50 }} className="submit">submit</button>
           </div>
