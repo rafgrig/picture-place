@@ -3,18 +3,21 @@ import "./CreatePost.css";
 import { db } from "../firestore";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useNavigate } from "react-router";
-function CreatePost() {
+
+function CreatePost({ userId }) {
     const [imgURL, setImgURL] = useState("");
     const [title, setTitle] = useState("");
     const [descr, setDescr] = useState("");
     const navigate = useNavigate()
+
     async function addPost() {
         if (!imgURL || !title || !descr) {
             alert("Fill the inputs!");
             return;
         }
-        const userDocRef = doc(db, "users", "HzG4wIXuwBnklGF2Gh8T");
+        console.log(userId)
         try {
+            const userDocRef = doc(db, "users", userId);
             await updateDoc(userDocRef, {
                 posts: arrayUnion({
                     title: title,
@@ -39,13 +42,13 @@ function CreatePost() {
             </h1>
             <div className="postCrtWrapper">
                 <div className="head    ">
-                    <h4 style={{fontSize:"50px"}}>Image</h4>
+                    <h4 style={{ fontSize: "50px" }}>Image</h4>
                     <br />
                     <input value={imgURL} onChange={(e) => setImgURL(e.target.value)} type="text" className="fieldInput" placeholder="Enter image URL" />
-                    <h4 style={{fontSize:"50px"}}>Title</h4>
+                    <h4 style={{ fontSize: "50px" }}>Title</h4>
                     <br />
                     <input value={title} onChange={(e) => setTitle(e.target.value)} className="fieldInput" type="text" placeholder="Enter the title" />
-                    <h4 style={{fontSize:"50px"}}>Description</h4>
+                    <h4 style={{ fontSize: "50px" }}>Description</h4>
                     <br />
                     <input value={descr} onChange={(e) => setDescr(e.target.value)} className="fieldInput" type="text" placeholder="Enter the description" />
                     <br />

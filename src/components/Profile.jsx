@@ -1,42 +1,45 @@
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firestore.js";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./Profile.css";
 import { useNavigate } from "react-router";
 import Post from "./Post.jsx";
 
-function Profile() {
+function Profile({userId}) {
   const [userData, setUserData] = useState(null);
   const [data, setData] = useState(null);
-  const [refresh, setRefresh] = useState(0);
   const navigate = useNavigate();
 
+  console.log(userId);
+  
   function truncateText(text, maxLength = 350) {
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
   }
 
-  useEffect(() => {
-    async function fetchData() {
-      const userDocRef = doc(db, "users", "HzG4wIXuwBnklGF2Gh8T");
-      const docSnap = await getDoc(userDocRef);
-      if (docSnap.exists()) {
-        setUserData(docSnap.data());
-        setData(docSnap);
-      } else {
-        console.log("No such document!");
-      }
+  const fetchData = useCallback(async()=> {
+    if(!userId) return;
+    const userDocRef = doc(db, "users", userId);
+    const docSnap = await getDoc(userDocRef);
+    if (docSnap.exists()) {
+      setUserData(docSnap.data());
+      setData(docSnap);
+    } else {
+      console.log("No such document!");
     }
+  }, [userId])
+
+  useEffect(() => {
     fetchData();
-  }, [refresh]);
+  }, [fetchData]);
 
   return (
     <div>
       {userData ? (
         <>
-          <img style={{ margin: 5, width: 200, height: 200, borderRadius: "100%" }} src={userData["profile_pic"]} />
+          <img alt="user's" style={{ margin: 5, width: 200, height: 200, borderRadius: "100%" }} src={userData["profile_pic"]} />
           <h3 style={{ margin: 5 }}>User Name: {userData["nick_name"]}</h3>
           <h3 style={{ margin: 5 }}>User email: {userData.email}</h3>
-          <h1>{data["_key"].path.segments[1]}</h1>
+          {/* <h1>{data["_key"].path.segments[1]}</h1> */}
           <button onClick={() => navigate("/create")} id="addBtn">+</button>
           <div className="posts">
             {userData.posts && userData.posts.length > 0 ? (
@@ -49,7 +52,7 @@ function Profile() {
                   description={truncateText(post.description)}
                   deletingData={userData.posts}
                   userId={data["_key"].path.segments[1]}
-                  setRefresh={setRefresh}
+                  featchPosts={fetchData}
                 />
               ))
             ) : (

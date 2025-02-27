@@ -8,7 +8,6 @@
 
 a{
     height: 200px;
-    line-height: 200px; /* Matches the height */
     text-align: center;
     border-left:5px solid black;
     border-right: 5px solid  black;
@@ -16,5 +15,5 @@ a{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: black;
     text-decoration: none;
-    padding: 0px 5px 0px 5px;
+    padding: 50px 5px 0px 5px;
 }

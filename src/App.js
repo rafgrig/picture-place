@@ -1,44 +1,47 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router';
-import Header from './components/Header';
-import Profile from './components/Profile';
-import CreatePost from './components/CreatePost';
-import PostPage from './components/PostPage';
-import { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router';
+import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firestore'
-import MostPopular from './components/MostPopular';
-import AboutUs from './components/AboutUs';  
-import ContactUs from './components/ContactUs'; 
+import Login from "./components/Login"
+import Register from "./components/Register"
+import WithHeader from './components/WithHeader';
+
 
 function App() {
-    useEffect(() => onAuthStateChanged(auth, (user) => {    
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {    
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-        const uid = user.uid;
-        // ...
+        setUser(user);
       } else {
-        // User is signed out
-        // ...
+        setUser(null);
       }
-    }), [])
+      setLoading(false);
+    });
+  
+    return () => unsubscribe();
+  }, []);
+  
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  
+  console.log(user?.uid)
+  console.log(user)
   return (
-    
     <Router>
-     <Header/>
       <Routes>
-        <Route path='/' element={<div>Home</div>}/>
-        <Route path='/profile' element={<Profile/>}/>
-        <Route path='/create' element={<CreatePost/>}/>
-        <Route path="/post/:userId/:postIndex" element={<PostPage />} />
-        <Route path="/about" element={<AboutUs />} /> 
-        <Route path="/contact" element={<ContactUs />} />
+        <Route path='/login' element={<Login setUser={setUser}/>}/>
+        <Route path='/register' element={<Register setUser={setUser}/>}/>
+        <Route path='*' element={<WithHeader isLogedIn={!!user} userId={user?.uid}/>}/>
       </Routes>
     </Router>
-    
-    
   );
+
+  
 }
 
 export default App;

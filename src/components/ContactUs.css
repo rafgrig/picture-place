@@ -52,7 +52,7 @@
   }
   .mini2-overlay{
     position: absolute;
-    top: 250px;
+    top: 350px;
     right: 20px;
     color: black;
     font-size: 48px; 
@@ -69,7 +69,7 @@
   }
   .mini3-overlay{
     position: absolute;
-    top: 425px;
+    top: 550px;
     right: 20px;
     color: black;
     font-size: 48px; 

@@ -7,7 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useNavigate } from "react-router";
 import { TextField } from "@mui/material";
 
-function Post({ index, img, title, description, deletingData, userId, setRefresh }) {
+function Post({ featchPosts, index, img, title, description, deletingData, userId }) {
   const forDeleting = deletingData[index];
   const [openDel, setOpenDel] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
@@ -18,9 +18,9 @@ function Post({ index, img, title, description, deletingData, userId, setRefresh
   const deleting = useCallback(async () => {
     if (!forDeleting) return;
     await updateDoc(doc(db, "users", userId), { posts: arrayRemove(forDeleting) });
-    setRefresh((prevState) => prevState + 1);
+    featchPosts()
     setOpenDel(false);
-  }, [forDeleting, userId, setRefresh]);
+  }, [forDeleting, userId, featchPosts]);
 
   const editing = useCallback(async (e) => {
     e.stopPropagation();
@@ -28,17 +28,17 @@ function Post({ index, img, title, description, deletingData, userId, setRefresh
       let array = deletingData;
       array[index] = { ...array[index], title: newTitle, description: newDescr };
       transaction.update(doc(db, "users", userId), { posts: array });
-    });
+    }, );
+    featchPosts()
     setOpenEdit(false);
-    setRefresh((prevState) => prevState + 1);
-  }, [index, newTitle, newDescr, deletingData, userId, setRefresh]);
+  }, [index, newTitle, newDescr, deletingData, userId, featchPosts]);
 
   return (
     <>
       <div className="postWrapper" key={index}> 
         <button onClick={() => setOpenDel(true)} className="deleteBtn">X</button>
-        <div className="divToClick" onClick={() => navigate(`/post/HzG4wIXuwBnklGF2Gh8T/${index}`)}>
-          <img src={img} alt="post image" />
+        <div className="divToClick" onClick={() => navigate(`/post/${userId}/${index}`)}>
+          <img src={img} alt="post" />
           <div className="misc">
             <h4>{title}</h4>
             <span className="descriptionSpan">{description}</span>
@@ -66,7 +66,7 @@ function Post({ index, img, title, description, deletingData, userId, setRefresh
             <br />
 
             <h5 style={{fontSize:20}}><b>Edit Description</b></h5>
-            <TextField sx={{backgroundColor:"rgb(230, 230, 230)", borderRadius:"15px",}} multiline value={newDescr} onChange={(e) => setNewDescr(e.target.value)} placeholder="Enter new description" />
+            <TextField variant="standard" sx={{backgroundColor:"rgb(230, 230, 230)", borderRadius:"15px"}} multiline value={newDescr} onChange={(e) => setNewDescr(e.target.value)} placeholder="Enter new description" />
             
             <br/>
             <br/>

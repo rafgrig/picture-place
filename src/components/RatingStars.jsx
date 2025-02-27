@@ -12,7 +12,7 @@ function RatingStars() {
   const { userId, postIndex } = useParams();
   const [post, setPost] = useState(null);
   const [rating, setRating] = useState({});
-  const raterId = "HzG4wIXuwBnklGF2Gh8T"; // Hardcode arac useri ID, piti poxvi darna login exac useri Id
+  const raterId = userId; // Hardcode arac useri ID, piti poxvi darna login exac useri Id
 
   useEffect(() => {
     async function fetchPost() {
