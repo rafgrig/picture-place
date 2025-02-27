@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "./Footer";
 
 function AboutUs() {
   return (
@@ -36,7 +35,6 @@ function AboutUs() {
         celebrated and accessible to everyone. Step into our gallery, and let
         yourself be inspired.
       </p>
-      <Footer/>
     </div>
   );
 }

@@ -198,9 +198,8 @@ function HomePage() {
             {/* tvayin buttonner */}
             {numbers.map((number) => (
               <li
-                className={`page-item ${
-                  currentPage === number ? "active" : ""
-                }`}
+                className={`page-item ${currentPage === number ? "active" : ""
+                  }`}
                 key={number}
               >
                 <button
@@ -225,9 +224,6 @@ function HomePage() {
           </ul>
         </nav>
       </section>
-      <footer>
-        <Footer />
-      </footer>
     </div>
   );
 }

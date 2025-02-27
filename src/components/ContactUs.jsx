@@ -1,6 +1,5 @@
 import React from "react";
 import "./ContactUs.css";
-import Footer from "./Footer";
 
 function ContactUs() {
   return (
@@ -54,7 +53,6 @@ function ContactUs() {
           596421
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
