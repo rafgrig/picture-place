@@ -10,7 +10,9 @@ function Profile() {
   const [refresh, setRefresh] = useState(0);
   const navigate = useNavigate();
   function truncateText(text, maxLength = 350) {
-    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+    return text.length > maxLength
+      ? text.substring(0, maxLength) + "..."
+      : text;
   }
   useEffect(() => {
     async function fetchData() {
@@ -32,6 +34,7 @@ function Profile() {
           <img
             style={{ margin: 5, width: 200, height: 200, borderRadius: "100%" }}
             src={userData["profile_pic"]}
+            alt="User Profile"
           />
           <h3 style={{ margin: 5 }}>User Name: {userData["nick_name"]}</h3>
           <h3 style={{ margin: 5 }}>User email: {userData.email}</h3>
@@ -48,9 +51,9 @@ function Profile() {
             {userData.posts && userData.posts.length > 0 ? (
               userData.posts.map((post, index) => (
                 <Post
-                key={post.id || index}
+                  key={post.id || index}
                   index={index}
-                 img={post.img}
+                  img={post.img}
                   title={post.title}
                   description={truncateText(post.description)}
                   deletingData={userData.posts}

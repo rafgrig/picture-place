@@ -1,0 +1,215 @@
+.sectionWrapper {
+  background-image: url("https://images.unsplash.com/photo-1624913503273-5f9c4e980dba?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  height: 105vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+}
+
+.texts {
+  color: white;
+  font-size: 3rem;
+  margin: auto;
+  text-align: center;
+  padding-top: 80px;
+}
+
+.title {
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: fadeInDown 1.2s ease-out forwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slogan {
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards;
+  animation-delay: 1.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.postsWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 24px;
+}
+
+.postCard {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 300px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.postCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.postImg {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.postTitle {
+  font-size: 1.4rem;
+  margin: 12px 0;
+  color: #333;
+  font-weight: bold;
+}
+
+.postDescription {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.postRating {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ff9800;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.pagination .page-item {
+  list-style: none;
+}
+
+.pagination .page-link {
+  padding: 8px 16px;
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease; /* Smooth transition */
+  font-size: 14px;
+}
+
+.pagination .page-link:hover {
+  background-color: #ddd;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #ffd84d; /* Custom yellow color */
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add subtle shadow for depth */
+}
+
+.pagination .page-link:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7; /* Reduce opacity for disabled buttons */
+}
+
+.latestNewsTitle {
+  text-align: center;
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.newsWrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap; /* Allows cards to wrap on smaller screens */
+}
+
+.newsCard {
+  flex: 1;
+  min-width: 300px; /* Ensures cards don't get too small */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.newsCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.newsImage {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.newsTitle {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.newsCaption {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.PostsTitle{
+  text-align: center;
+  font-size: 4rem;
+  margin-top: 20px;
+}
+
+.sectionDivider {
+  height: 2px;
+  margin: 40px 0;
+}
+
+.sectionSecond,
+.sectionThird {
+  text-align: center;
+  padding: 20px;
+}
+
+.sectionFourth nav{
+  margin-bottom: 20px;
+}
+
+.star-icon {
+  font-size: 16px;
+  color: #ffd84d;
+  transition: color 0.3s ease-in-out;
+}

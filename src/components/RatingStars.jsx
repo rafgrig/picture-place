@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../firestore"; 
+import { db, auth } from "../firestore"; 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +13,8 @@ function RatingStars() {
   const [post, setPost] = useState(null);
   const [rating, setRating] = useState({});
   const raterId = "HzG4wIXuwBnklGF2Gh8T"; // Hardcode arac useri ID, piti poxvi darna login exac useri Id
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function fetchPost() {
@@ -33,6 +35,11 @@ function RatingStars() {
   }, [userId, postIndex]);
 
   async function handleRating(value) {
+    const user = auth.currentUser;
+    if (!user) {
+      navigate("/signin"); // petqa poxel sign in ev sign up ejery avelacneluc heto!!
+      return;
+    };
     if (!post) return;
 
     const userRef = doc(db, "users", userId);
