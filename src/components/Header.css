@@ -8,8 +8,6 @@
 
 a {
     height: 130px;
-    line-height: 130px;
-    /* Matches the height */
     text-align: center;
     border-left: 5px solid black;
     border-right: 5px solid black;
@@ -17,5 +15,44 @@ a {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: black;
     text-decoration: none;
-    padding: 50px 5px 0px 5px;
+    padding: 5px 5px 0px 5px;
+}
+
+.btnWrapperHeader {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin-right: 25%;
+}
+
+.btnWrapperHeader button {
+    border: none;
+    font-size: large;
+    width: 30%;
+    border-radius: 45px;
+    transition: 0.5s;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.btnWrapperHeader button:hover {
+    transform: scale(1.2);
+}
+
+.logoutBtn {
+    padding: 10px 15px;
+    margin-left: 20px;
+    background-color: #ffdb4d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: ease-in-out 0.2s;
+}
+
+.logoutBtn:hover {
+    background-color: #ffd84d;
+    scale: 1.05;
+    transition: ease-in-out 0.2s;
 }

@@ -28,15 +28,12 @@ function App() {
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  console.log(user?.uid)
-  console.log(user)
   return (
     <Router>
       <Routes>
         <Route path='/login' element={<Login setUser={setUser} />} />
         <Route path='/register' element={<Register setUser={setUser} />} />
-        <Route path='*' element={<WithHeader isLogedIn={!!user} userId={user?.uid} />} />
+        <Route path='*' element={<WithHeader isLoggedIn={!!user} userId={user?.uid} />} />
       </Routes>
     </Router>
   );

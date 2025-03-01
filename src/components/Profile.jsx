@@ -10,7 +10,6 @@ function Profile({ userId }) {
   const [data, setData] = useState(null);
   const navigate = useNavigate();
 
-  console.log(userId);
 
   function truncateText(text, maxLength = 350) {
     return text.length > maxLength
@@ -41,7 +40,7 @@ function Profile({ userId }) {
           <img
             style={{ margin: 5, width: 200, height: 200, borderRadius: "100%" }}
             src={userData["profile_pic"]}
-            alt="User Profile"
+            alt={`${userData.nick_name[0]}`}
           />
           <h3 style={{ margin: 5 }}>User Name: {userData["nick_name"]}</h3>
           <h3 style={{ margin: 5 }}>User email: {userData.email}</h3>

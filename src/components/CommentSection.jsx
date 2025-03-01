@@ -1,57 +1,72 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { signInAnonymously } from "firebase/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../firestore";
 import "./CommentSection.css";
 
-function CommentSection({ selectedPost, userIdOwner, onCommentAdded, postIndex }) {
+function CommentSection({ isLoggedIn, selectedPost, userIdOwner, onCommentAdded, postIndex }) {
   const [commentInput, setCommentInput] = useState("");
+  const [FSuser, setFSuser] = useState(null)
 
   ////////////////////////////////// Anonymous login - arvela testi hamar!!
   async function anonymousLogin() {
     try {
-      const userCredential = await signInAnonymously(auth);
-      const user = userCredential.user;
-    //   console.log("Anonymous user signed in successfully:", user.uid);
+      await signInAnonymously(auth);
+      //   console.log("Anonymous user signed in successfully:", user.uid);
     } catch (error) {
       console.error("Error signing in anonymously:", error.message);
       throw error;
     }
   }
 
-  useEffect(() => {
-    (async () => {
-      try {
-        await anonymousLogin();
-        // console.log("Anonymous login successful!");
-      } catch (error) {
-        console.error("Failed to log in anonymously:", error);
-      }
-    })();
-  }, []);
+  const fetchData = useCallback(async () => {
+    if (!auth.currentUser?.uid) return;
+    const userDocRef = doc(db, "users", auth.currentUser.uid);
+    const docSnap = await getDoc(userDocRef);
+    if (docSnap.exists()) {
+      setFSuser(docSnap.data());
+    } else {
+      console.log("No such document!");
+    }
+  }, [])
 
-  ///////////////////////////////////////////////////////////// 
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      (async () => {
+        try {
+          await anonymousLogin();
+        } catch (error) {
+          console.error("Failed to log in anonymously:", error);
+        }
+      })();
+    }
+  }, [isLoggedIn]);
 
 
   // Post comment logic
   async function postComment() {
-    const user = auth.currentUser;
-
+    const authUser = auth.currentUser;
+    const docSnap = await getDoc(doc(db, "users", authUser.uid))
+    const FSuser = docSnap.exists ? docSnap.data() : null
     try {
-      if (!user) {
+      if (!authUser) {
         throw new Error("No logged-in user");
       }
 
-      const userId = user.uid; 
-      const userNick = user.nick_name || "Anonymous";
+      const userId = authUser.uid;
+      const userNick = FSuser?.nick_name || "Anonymous";
       const userImg =
-        user.profile_pic ||
+        FSuser?.profile_pic ||
         "https://i.pinimg.com/474x/25/1c/e1/251ce139d8c07cbcc9daeca832851719.jpg"; // Default image
 
       // fetching user
       const userDocRef = doc(db, "users", userIdOwner);
 
-      
+
       const userDocSnapshot = await getDoc(userDocRef);
       if (!userDocSnapshot.exists()) {
         throw new Error("User does not exist");
@@ -91,7 +106,7 @@ function CommentSection({ selectedPost, userIdOwner, onCommentAdded, postIndex }
 
       // Re-fetchi kanch vor avelacvac commenty ereva
       if (onCommentAdded) {
-        onCommentAdded(); 
+        onCommentAdded();
       }
     } catch (error) {
       console.error(`Error posting comment: ${error.message}`);
@@ -105,20 +120,21 @@ function CommentSection({ selectedPost, userIdOwner, onCommentAdded, postIndex }
         <div className="user-data">
           <img
             src={
-              auth.currentUser?.profile_pic ||
+              FSuser?.profile_pic ||
               "https://i.pinimg.com/474x/25/1c/e1/251ce139d8c07cbcc9daeca832851719.jpg"
             }
             alt="User"
           />
-          <p>{auth.currentUser?.nick_name || "Anonymous"}</p>
+          <p>{FSuser?.nick_name || "Anonymous"}</p>
         </div>
         <input
           type="text"
+          className="commentInp"
           placeholder="Write a comment..."
           onChange={(e) => setCommentInput(e.target.value)}
           value={commentInput}
         />
-        <button onClick={postComment}>Post</button>
+        <button className="postBtn" onClick={postComment}>Post</button>
       </div>
       <div className="comments-list">
         {selectedPost.comments && selectedPost.comments.length > 0 ? (

@@ -10,7 +10,6 @@ import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
 import YerevanImg from "../images/YerevanSunset.jpg";
 import StreetArt from "../images/streetArt.webp";
 import MinimalismPhoto from "../images/minimalist.webp";
-import Footer from "./Footer";
 
 function HomePage() {
   const navigate = useNavigate();

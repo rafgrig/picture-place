@@ -43,15 +43,23 @@ function CreatePost({ userId }) {
             <div className="postCrtWrapper">
                 <div className="head    ">
                     <h4 style={{ fontSize: "50px" }}>Image</h4>
+
                     <br />
-                    <input value={imgURL} onChange={(e) => setImgURL(e.target.value)} type="text" className="fieldInput" placeholder="Enter image URL" />
+
+                    <input style={{ borderRadius: "100px", border: "none" }} value={imgURL} onChange={(e) => setImgURL(e.target.value)} type="text" className="fieldInput" placeholder="Enter image URL" />
                     <h4 style={{ fontSize: "50px" }}>Title</h4>
+
                     <br />
-                    <input value={title} onChange={(e) => setTitle(e.target.value)} className="fieldInput" type="text" placeholder="Enter the title" />
+
+                    <input style={{ borderRadius: "100px", border: "none" }} value={title} onChange={(e) => setTitle(e.target.value)} className="fieldInput" type="text" placeholder="Enter the title" />
                     <h4 style={{ fontSize: "50px" }}>Description</h4>
+
                     <br />
-                    <input value={descr} onChange={(e) => setDescr(e.target.value)} className="fieldInput" type="text" placeholder="Enter the description" />
+
+                    <input style={{ borderRadius: "100px", border: "none" }} value={descr} onChange={(e) => setDescr(e.target.value)} className="fieldInput" type="text" placeholder="Enter the description" />
+
                     <br />
+
                     <button onClick={addPost} className="submit">Submit</button>
                 </div>
             </div>

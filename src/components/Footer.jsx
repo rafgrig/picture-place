@@ -5,7 +5,9 @@ import {
   faInstagram,
   faFacebook,
   faTelegram,
-} from "@fortawesome/free-brands-svg-icons";
+}
+
+  from "@fortawesome/free-brands-svg-icons";
 import "./Footer.css";
 
 function Footer() {

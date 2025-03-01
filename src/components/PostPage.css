@@ -1,10 +1,3 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
-  padding: 20px;
-}
-
 .post-container {
   max-width: 800px;
   margin: 0 auto;
@@ -57,17 +50,17 @@ body {
 .star {
   font-size: 1.5rem;
   cursor: pointer;
-  color: #ccc; 
+  color: #ccc;
 }
 
 .star .star-icon {
-  color: #ccc; 
+  color: #ccc;
 }
 
 .star .star-icon.filled {
-  color: #ffd84d; 
+  color: #ffd84d;
 }
 
 .star:hover .star-icon {
-  color: #ffd84d; 
+  color: #ffd84d;
 }

@@ -3,7 +3,7 @@ import "./ContactUs.css";
 
 function ContactUs() {
   return (
-    <div className="container">
+    <div className="containerContactUS">
       <div className="image-container">
         <img
           src="https://s3-alpha-sig.figma.com/img/627c/8e70/59e0e111026664a46bb2b5a22a9c002e?Expires=1740355200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=c3gmTH2I7yc5LMxoT4uflvWHZMJki-qRE75bcZj7YsSp0IKs~TV1GQKfZTO0V5o3st8S~U3PIZeB6M~KnbiKDPppzp6Pd-1f1hUpg2L7ntGSlBEWi7xy33XAjTobPW28cPxb~qQFvMLQKRjnrCi3YHYbtX8NkQEkSp8oHHOLL7TMHJ9MIaOo682hdxT3UkueyvvOiMg5XRwvG8DWYkK1cjK3VjBGzL2mw-l0Mqucox82E-vf8Xz5KQ4hhA55mCXycuIhOdwb~2W2jGfWc~xQjIWO3rkRJMtQolj9MUqYqutMCiLF93GVhIdGmri02y1boe3ODJ7CErKi6wfV1ETB2w__"

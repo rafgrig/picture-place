@@ -47,7 +47,7 @@ function Post({ featchPosts, index, img, title, description, deletingData, userI
         <button onClick={() => setOpenEdit(true)} className="editBtn">✏️</button>
       </div>
       <Dialog open={openDel} onClose={() => setOpenDel(false)}>
-        <DialogTitle>Are you sure you want to delete this post?</DialogTitle>
+        <DialogTitle sx={{ fontSize: 16, width: "80%", fontWeight: "bold" }}>Are you sure you want to delete this post?</DialogTitle>
         <DialogActions>
           <div className="btnWrapper">
             <button className="commitBtn" style={{ backgroundColor: "rgb(177, 177, 177)", cursor: "pointer" }} onClick={deleting}>Yes</button>

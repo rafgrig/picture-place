@@ -9,16 +9,17 @@ import HomePage from "./HomePage";
 import Footer from "./Footer";
 
 
-function WithHeader({ isLogedIn, userId }) {
+function WithHeader({ isLoggedIn, userId }) {
+    console.log(isLoggedIn)
     return (
         <>
-            <Header isLogedIn={isLogedIn} />
+            <Header isLoggedIn={isLoggedIn} />
 
             <Routes>
                 <Route path='/' element={<HomePage />} />
                 <Route path='/profile' element={<Profile userId={userId} />} />
                 <Route path='/create' element={<CreatePost userId={userId} />} />
-                <Route path="/post/:userId/:postIndex" element={<PostPage />} />
+                <Route path="/post/:userId/:postIndex" element={<PostPage isLoggedIn={isLoggedIn} />} />
                 <Route path="/about" element={<AboutUs />} />
                 <Route path="/contact" element={<ContactUs userId={userId} />} />
             </Routes>

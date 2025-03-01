@@ -6,7 +6,7 @@ import CommentSection from "./CommentSection";
 import RatingStars from "./RatingStars";
 import "./PostPage.css";
 
-function PostPage() {
+function PostPage({ isLoggedIn }) {
   const { userId, postIndex } = useParams();
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -89,10 +89,11 @@ function PostPage() {
       </div>
       <div className="comments">
         <CommentSection
+          isLoggedIn={isLoggedIn}
           selectedPost={selectedPost}
           userIdOwner={userId}
           onCommentAdded={handleCommentAdded}
-          postIndex={postIndex} 
+          postIndex={postIndex}
         />
       </div>
     </div>
