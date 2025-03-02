@@ -5,6 +5,7 @@ import { auth } from "../firestore";
 import { signOut } from "firebase/auth";
 import { useState } from "react";
 import { Dialog, DialogActions, DialogTitle } from "@mui/material";
+import picturePlaceLogo from "../images/picturePlaceLogo.png"
 
 function Header({ isLoggedIn }) {
   const [open, setOpen] = useState(false)
@@ -40,6 +41,7 @@ function Header({ isLoggedIn }) {
     <>
       <header style={{ backgroundColor: "#FFC546" }}>
         <div className="wrapper">
+          <img onClick={() => { navigate("/") }} style={{ height: 100, position: "absolute", left: 0, cursor: "pointer" }} src={picturePlaceLogo} alt="logo" />
           <Link style={{ backgroundColor: pathname === "/" ? "black" : null, color: pathname === "/" ? "#FFC546" : "black", }} to="/">Home</Link>
           <Link style={{ backgroundColor: pathname === "/contact" ? "black" : null, color: pathname === "/contact" ? "#FFC546" : "black", }} to="/contact">Contact Us</Link>
           <Link style={{ backgroundColor: pathname === "/about" ? "black" : null, color: pathname === "/about" ? "#FFC546" : "black", }} to="/about">About Us</Link>

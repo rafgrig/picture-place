@@ -29,7 +29,7 @@ function MostPopular() {
   function getMostPopularPosts(collection) {
     const posts = [];
     collection.map((user) => {
-      user.posts.map((post, idx) => {
+      user.posts.map((post) => {
         posts.push({
           ...post,
           userId: user.id,
@@ -63,7 +63,7 @@ function MostPopular() {
               <div
                 className="popular-item"
                 key={index}
-                onClick={() => navigate(`/post/${post.userId}/${index+1}`)}
+                onClick={() => navigate(`/post/${post.userId}/${index + 1}`)}
               >
                 <img src={post.img} alt={post.title} />
                 <div className="info">
